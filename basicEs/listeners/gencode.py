@@ -49,6 +49,8 @@ class GenCode(marzoListener):
 
     def exitPrimaria(self, ctx:marzoParser.PrimariaContext):
         self.stack.push(ctx.Numero().getText())
+        print('lw $' + str(self.counter) + ', ' + str(ctx.Numero().getText()))
+        self.counter+=1
 
     def exitSuma(self, ctx:marzoParser.SumaContext):
         print("ADD $" + str(self.counter) + ', ' + str(self.stack.pop()) + ", " + str(self.stack.pop()))
@@ -56,6 +58,7 @@ class GenCode(marzoListener):
     
     def enterDeclaracion(self, ctx:marzoParser.DeclaracionContext):
         self.stack.push(ctx.getTokens(marzoParser.Name)[0].getText())
+       
 
     def exitDeclaracion(self, ctx:marzoParser.DeclaracionContext):
         temp = self.stack.pop()
@@ -110,4 +113,6 @@ class GenCode(marzoListener):
         
 
     def exitPrintstmt(self, ctx:marzoParser.PrintstmtContext):
-        print('prt ' + ctx.getTokens(marzoParser.Numero)[0].getText())
+        print('lw ' + ctx.getTokens(marzoParser.Numero)[0].getText())
+        print('syscall ') 
+        
