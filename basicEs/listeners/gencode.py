@@ -66,10 +66,27 @@ class GenCode(marzoListener):
         val_list = list(self.dict.values())
         pos = val_list.index(temp)
         print('lw $' + str(key_list[pos]) + ' '  + ', 0')
-
     
+    def enterComparation(self, ctx:marzoParser.ComparationContext):
+        self.stack.push(ctx.getTokens(marzoParser.Name)[0].getText())
+        self.counter+=1
+        self.dict[self.counter] = ctx.getTokens(marzoParser.Name)[0].getText()
+        self.stack.push(ctx.getTokens(marzoParser.Numero)[0].getText())
+        self.counter += 1
+        self.dict[self.counter] = ctx.getTokens(marzoParser.Numero)[0].getText()
+    
+    def exitComparation(self, ctx:marzoParser.ComparationContext):
+        key_list = list(self.dict.keys())
+        val_list = list(self.dict.values())
+        
+        num = self.stack.pop()
+        name = self.stack.pop()
+        pos = val_list.index(num)
+        pos2 = val_list.index(name)
+        print('eq $' + str(key_list[pos2]) + ', $' + str(key_list[pos]) + ' j ELSE')
+
     def enterIfConElse(self, ctx:marzoParser.IfConElseContext):
-        print('IF ' + str(ctx.getTokens(marzoParser.Name)[0].getText()) + " equal " + str(ctx.getTokens(marzoParser.Numero)[0].getText()) + ' ELSE j ')
+        print('IF ')
         #print('Testeo de valores ' + str(ctx.getToken(marzoParser.statements, 1)))
 
 
