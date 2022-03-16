@@ -1,9 +1,7 @@
 grammar marzo;
 
 program : 
-declaration*
 statements* 
-| statements* declaration*
              ;
 
 declaration   : 
@@ -25,7 +23,8 @@ statements :
         ifstatement                         
     |  expression                          
     | printstmt  
-    | assignacion                
+    | assignacion  
+    | declaration              
 ;
 comparation:
         Name '==' Numero
