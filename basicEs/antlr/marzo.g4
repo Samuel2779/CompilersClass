@@ -3,6 +3,7 @@ grammar marzo;
 program : 
 declaration*
 statements* 
+| statements* declaration*
              ;
 
 declaration   : 
