@@ -53,7 +53,10 @@ class GenCode(marzoListener):
         self.counter+=1
 
     def exitSuma(self, ctx:marzoParser.SumaContext):
-        print("ADD $" + str(self.counter) + ', ' + str(self.stack.pop()) + ", " + str(self.stack.pop()))
+        x = self.stack.pop()
+        y = self.stack.pop()
+        print("ADD $" + str(self.counter) + ', ' + str(x) + ", " + str(y))
+        self.stack.push(int(x) + int(y))
         self.counter += 1
     
     def enterDeclaracion(self, ctx:marzoParser.DeclaracionContext):
